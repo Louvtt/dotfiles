@@ -171,7 +171,8 @@ ruled.client.connect_signal(
 					'Geany',
 					'Atom',
 					'Subl3',
-					'code-oss'
+					'code-oss',
+					'vscodium'
 				},
 				name  = {
 					'LibreOffice',
@@ -189,6 +190,7 @@ ruled.client.connect_signal(
 			rule_any = {
 				class = {
 					'dolphin',
+					'thunder',
 					'ark',
 					'Nemo',
 					'File-roller'
@@ -244,7 +246,8 @@ ruled.client.connect_signal(
 				class = {
 					'Gimp-2.10',
 					'Inkscape',
-					'Flowblade'
+					'Flowblade',
+					'Blender'
 				}
 			},
 			properties = {
@@ -276,6 +279,7 @@ ruled.client.connect_signal(
 					'Oomox',
 					'Unity',
 					'UnityHub',
+					'Godot',
 					'jetbrains-studio',
 					'Ettercap',
 					'scrcpy'
@@ -293,6 +297,7 @@ ruled.client.connect_signal(
 			rule_any  = {
 				class    = {
 					'feh',
+					'geeqie',
 					'Pqiv',
 					'Sxiv'
 				},

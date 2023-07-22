@@ -1,0 +1,6 @@
+	Name: alsa_output.pci-0000_03_00.6.analog-stereo
+	Description: Family 17h/19h HD Audio Controller Analog Stereo
+	Driver: PipeWire
+	Name: alsa_output.pci-0000_03_00.1.hdmi-stereo
+	Description: Raven/Raven2/Fenghuang HDMI/DP Audio Controller Digital Stereo (HDMI)
+	Driver: PipeWire

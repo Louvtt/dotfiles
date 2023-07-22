@@ -57,13 +57,13 @@ local tags = {
 	-- 	layout = awful.layout.suit.max,
 	-- 	gap = 0,
 	-- },
-	-- {
-	-- 	type = "any",
-	-- 	icon = icons.development,
-	-- 	default_app = apps.default.development,
-	-- 	gap = beautiful.useless_gap,
-	-- 	layout = awful.layout.suit.floating,
-	-- },
+	{
+		type = "any",
+		icon = icons.development,
+		default_app = apps.default.development,
+		gap = beautiful.useless_gap,
+		layout = awful.layout.suit.floating,
+	},
 	-- {
 	--   type = 'social',
 	--   icon = icons.social,

@@ -125,8 +125,8 @@ local date_value = function()
 	local day = os.date('%A')
 	local month = os.date('%B')
 
-	local first_digit = string.sub(date, 0, 1) 
-	local last_digit = string.sub(date, -1) 
+	local first_digit = string.sub(date, 0, 1)
+	local last_digit = string.sub(date, -1)
 	if first_digit == '0' then
 	  date = last_digit
 	end

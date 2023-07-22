@@ -24,7 +24,7 @@ return {
     -- Default IDE
     development = "codium",
     -- Default network manager
-    network_manager = "alacritty iwctl",
+    network_manager = "cinnamon-settings network",
     -- Default bluetooth manager
     bluetooth_manager = "blueberry",
     -- Default power manager

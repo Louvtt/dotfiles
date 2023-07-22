@@ -196,7 +196,7 @@ local return_button = function()
 					if not tonumber(stdout) then
 						return
 					end
-					wifi_strength = tonumber(stdout)
+					local wifi_strength = tonumber(stdout)
 					local wifi_strength_rounded = math.floor(wifi_strength / 25 + 0.5)
 					update_wireless_icon(wifi_strength_rounded)
 				end
@@ -349,7 +349,7 @@ local return_button = function()
 		call_now = true,
 		callback = function()
 			check_network_mode()
-		end	
+		end
 	}
 
 	return widget_button

@@ -24,9 +24,9 @@ end
 naughty.config.padding = dpi(8)
 naughty.config.spacing = dpi(8)
 naughty.config.icon_dirs = {
+	'/usr/share/icons/Papirus/',
 	'/usr/share/icons/Tela',
 	'/usr/share/icons/Tela-blue-dark',
-	'/usr/share/icons/Papirus/',
 	'/usr/share/icons/la-capitaine-icon-theme/',
 	'/usr/share/icons/gnome/',
 	'/usr/share/icons/hicolor/',

@@ -49,10 +49,10 @@ local bottom_panel = function(s)
 				tag_list(s),
 				xdg_folders_builder
 					:with_separator()
-					:with_home()
-					:with_downloads()
-					:with_documents()
-					:with_separator()
+					-- :with_home()
+					-- :with_downloads()
+					-- :with_documents()
+					-- :with_separator()
 					:with_trash()
 					:horizontal()
 					:build(),

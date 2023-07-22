@@ -44,6 +44,7 @@ local top_panel = function(s, offset)
 		horizontal = true,
 		screen = "primary",
 		widget = wibox.widget.systray,
+		bg = beautiful.background,
 	})
 
 	local clock = require("widget.clock")
@@ -59,6 +60,7 @@ local top_panel = function(s, offset)
 	s.battery = require("widget.battery")
 	s.network = require("widget.network")
 	s.info_center_toggle = require("widget.info-center-toggle")
+	s.sound_picker_toggle = require("widget.sound-picker-toggle")
 
 	panel:setup({
 		layout = wibox.layout.align.horizontal,
@@ -79,15 +81,15 @@ local top_panel = function(s, offset)
 			},
 			s.tray_toggler,
 			s.updater(),
-			s.screen_rec(),
 			s.mpd,
 			s.network(),
+			s.sound_picker_toggle(),
 			s.bluetooth(),
 			s.battery(),
 			s.keyboard_layout(),
 			s.theme_picker_toggle(),
 			layout_box(s),
-			s.info_center_toggle(),
+			s.info_center_toggle()
 		},
 	})
 

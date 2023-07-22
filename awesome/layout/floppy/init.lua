@@ -4,6 +4,7 @@ local left_panel = require(path_to_file .. ".left-panel")
 local top_panel = require(path_to_file .. ".top-panel")
 local right_panel = require(path_to_file .. ".right-panel")
 local theme_picker = require("widget.theme-picker")
+local theme_picker = require("widget.sound-picker")
 
 -- Create a wibox panel for each screen and add it
 screen.connect_signal("request::desktop_decoration", function(s)
@@ -16,6 +17,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	s.right_panel = right_panel(s)
 	s.right_panel_show_again = false
 	s.theme_picker = theme_picker(s)
+	s.sound_picker = sound_picker(s)
 end)
 
 -- Hide bars when app go fullscreen
