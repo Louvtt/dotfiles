@@ -90,24 +90,24 @@ local global_keys = awful.util.table.join(
 		end
 	end, { description = "restore minimized", group = "screen" }),
 	awful.key({}, "XF86MonBrightnessUp", function()
-		awesome.emit_signal("module::brightness_osd:augment")
+		awesome.emit_signal("widget::brightness:augment", 10)
 		awesome.emit_signal("widget::brightness")
 		awesome.emit_signal("module::brightness_osd:show", true)
 	end, { description = "increase brightness by 10%", group = "hotkeys" }),
 	awful.key({}, "XF86MonBrightnessDown", function()
-		awesome.emit_signal("module::brightness_osd:decrease")
+		awesome.emit_signal("widget::brightness:decrease", 10)
 		awesome.emit_signal("widget::brightness")
 		awesome.emit_signal("module::brightness_osd:show", true)
 	end, { description = "decrease brightness by 10%", group = "hotkeys" }),
 	-- ALSA volume control
 	awful.key({}, "XF86AudioRaiseVolume", function()
+		awesome.emit_signal("widget::volume:augment", 10)
 		awesome.emit_signal("widget::volume")
-		awesome.emit_signal("widget::volume:augment")
 		awesome.emit_signal("module::volume_osd:show", true)
 	end, { description = "increase volume up by 10%", group = "hotkeys" }),
 	awful.key({}, "XF86AudioLowerVolume", function()
+		awesome.emit_signal("widget::volume:decrease", 10)
 		awesome.emit_signal("widget::volume")
-		awesome.emit_signal("widget::volume:decrease")
 		awesome.emit_signal("module::volume_osd:show", true)
 	end, { description = "decrease volume up by 10%", group = "hotkeys" }),
 	awful.key({}, "XF86AudioMute", function()

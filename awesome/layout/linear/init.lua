@@ -3,7 +3,7 @@ local bottom_panel = require("layout.linear.bottom-panel")
 local control_center = require("layout.linear.control-center")
 local info_center = require("layout.linear.info-center")
 local theme_picker = require("widget.theme-picker")
-local theme_picker = require("widget.sound-picker")
+local sound_picker = require("widget.sound-picker")
 
 -- Create a wibox panel for each screen and add it
 screen.connect_signal("request::desktop_decoration", function(s)

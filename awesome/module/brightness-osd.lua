@@ -49,8 +49,7 @@ bri_osd_slider:connect_signal(
 	'property::value',
 	function()
 		local brightness_level = bri_osd_slider:get_value()
-			
-		awful.spawn('pkexec xfpm-power-backlight-helper --set-brightness ' .. (math.max(brightness_level, 100) * 255), false)
+		awful.spawn.with_shell('light -S ' .. brightness_level)
 
 		-- Update textbox widget text
 		osd_value.text = brightness_level .. '%'
@@ -60,7 +59,7 @@ bri_osd_slider:connect_signal(
 
 		if awful.screen.focused().show_bri_osd then
 			awesome.emit_signal(
-				'module::brightness_osd:show', 
+				'module::brightness_osd:show',
 				true
 			)
 		end
@@ -193,7 +192,7 @@ awesome.connect_signal(
 
 local placement_placer = function()
 	local focused = awful.screen.focused()
-		
+
 	local right_panel = focused.right_panel
 	local left_panel = focused.left_panel
 	local brightness_osd = focused.brightness_osd_overlay
@@ -249,7 +248,7 @@ local placement_placer = function()
 end
 
 awesome.connect_signal(
-	'module::brightness_osd:show', 
+	'module::brightness_osd:show',
 	function(bool)
 		placement_placer()
 		awful.screen.focused().brightness_osd_overlay.visible = bool
@@ -264,22 +263,5 @@ awesome.connect_signal(
 				hide_osd:stop()
 			end
 		end
-	end
-)
-
-
-awesome.connect_signal(
-	'module::volume_osd:augment',
-	function()
-		local volume = awful.spawn('pkexec xfpm-power-backlight-helper --get-brightness')
-		awful.spawn('pkexec xfpm-power-backlight-helper --set-brightness ' .. (volume + 10), false)
-	end
-)
-
-awesome.connect_signal(
-	'module::volume_osd:decrease',
-	function()
-		local volume = awful.spawn('pkexec xfpm-power-backlight-helper --get-brightness')
-		awful.spawn('pkexec xfpm-power-backlight-helper --set-brightness ' .. (volume - 10), false)
 	end
 )

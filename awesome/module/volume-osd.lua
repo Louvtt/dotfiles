@@ -59,7 +59,7 @@ vol_osd_slider:connect_signal(
 
 		if awful.screen.focused().show_vol_osd then
 			awesome.emit_signal(
-				'module::volume_osd:show', 
+				'module::volume_osd:show',
 				true
 			)
 		end

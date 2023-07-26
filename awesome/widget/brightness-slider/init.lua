@@ -2,6 +2,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
+local naughty = require("naughty")
 local spawn = awful.spawn
 local dpi = beautiful.xresources.apply_dpi
 local icons = require("theme.icons")
@@ -47,14 +48,15 @@ local slider = wibox.widget({
 
 local brightness_slider = slider.brightness_slider
 
-brightness_slider:connect_signal("property::value", function()
-	local brightness_level = brightness_slider:get_value()
-
-	spawn("pkexec xfpm-power-backlight-helper --set-brighness " .. (brightness_level * 255 / 100), false)
-
-	-- Update brightness osd
-	awesome.emit_signal("module::brightness_osd", brightness_level)
-end)
+brightness_slider:connect_signal(
+	"property::value",
+	function()
+		local brightness_level = brightness_slider:get_value()
+		spawn.with_shell("light -S " .. brightness_level)
+		-- Update brightness osd
+		awesome.emit_signal("module::brightness_osd", brightness_level)
+	end
+)
 
 brightness_slider:buttons(gears.table.join(
 	awful.button({}, 4, nil, function()
@@ -74,10 +76,13 @@ brightness_slider:buttons(gears.table.join(
 ))
 
 local update_slider = function()
-	awful.spawn.easy_async_with_shell("pkexec xfpm-power-backlight-helper --get-brightness", function(stdout)
-		local brightness = string.match(stdout, "(%d+)%%")
-		brightness_slider:set_value(tonumber(brightness) / 255)
-	end)
+	awful.spawn.easy_async_with_shell(
+		"light -G",
+		function(stdout)
+			local brightness = string.match(stdout, "(%d+)")
+			brightness_slider:set_value(tonumber(brightness))
+		end
+	)
 end
 
 -- Update on startup
@@ -133,5 +138,13 @@ local brightness_setting = wibox.widget({
 		slider,
 	},
 })
+
+awesome.connect_signal("widget::brightness:augment", function(value)
+	spawn.with_shell("light -A " .. value)
+end)
+
+awesome.connect_signal("widget::brightness:decrease", function(value)
+	spawn.with_shell("light -U " .. value)
+end)
 
 return brightness_setting

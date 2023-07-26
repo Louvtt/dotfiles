@@ -1,6 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
+local watch = awful.widget.watch
 local dpi = require("beautiful").xresources.apply_dpi
 local config_dir = gears.filesystem.get_configuration_dir()
 local widget_icon_dir = config_dir .. "widget/sound-picker-toggle/icons/"
@@ -25,6 +26,16 @@ local return_button = function()
 		},
 		widget = clickable_container,
 	})
+
+	local sound_picker_tooltip = awful.tooltip {
+		objects = {widget_button},
+		mode = 'outside',
+		align = 'bottom',
+		margin_leftright = dpi(8),
+		margin_topbottom = dpi(8),
+		preferred_positions = {'bottom', 'right', 'left', 'top'},
+		markup = "Manage sound input",
+	}
 
 	widget_button:buttons(gears.table.join(awful.button({}, 1, nil, function()
 		local sound_picker = awful.screen.focused().sound_picker

@@ -1,6 +1,7 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
+local naughty = require("naughty")
 local beautiful = require("beautiful")
 local spawn = awful.spawn
 local dpi = beautiful.xresources.apply_dpi
@@ -53,24 +54,24 @@ end)
 
 volume_slider:buttons(gears.table.join(
 	awful.button({}, 4, nil, function()
+		volume_slider:set_value(volume_slider:get_value() + 5)
 		if volume_slider:get_value() > 100 then
 			volume_slider:set_value(100)
 			return
 		end
-		volume_slider:set_value(volume_slider:get_value() + 5)
 	end),
 	awful.button({}, 5, nil, function()
+		volume_slider:set_value(volume_slider:get_value() - 5)
 		if volume_slider:get_value() < 0 then
 			volume_slider:set_value(0)
 			return
 		end
-		volume_slider:set_value(volume_slider:get_value() - 5)
 	end)
 ))
 
 local update_slider = function()
 	awful.spawn.easy_async_with_shell([[bash -c "pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | grep -o '[0-9]*%'"]], function(stdout)
-		local volume = string.match(stdout, "%d%%")
+		local volume = string.match(stdout, "(%d+)%%")
 		volume_slider:set_value(tonumber(volume))
 	end)
 end
@@ -129,5 +130,18 @@ local volume_setting = wibox.widget({
 		slider,
 	},
 })
+
+awesome.connect_signal("widget::volume:augment", function(value)
+	spawn.with_shell("pactl set-sink-volume @DEFAULT_SINK@ +" .. value .. "%", false)
+end)
+
+awesome.connect_signal("widget::volume:decrease", function(value)
+	spawn.with_shell("pactl set-sink-volume @DEFAULT_SINK@ -" .. value .. "%", false)
+end)
+
+-- Set volume to 0 (could mute but need to add prop for that)
+awesome.connect_signal("widget::volume:mute", function (value)
+	spawn.with_shell("pactl set-sink-volume @DEFAULT_SINK@ 0%")
+end)
 
 return volume_setting

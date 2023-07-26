@@ -4,7 +4,7 @@ local left_panel = require(path_to_file .. ".left-panel")
 local top_panel = require(path_to_file .. ".top-panel")
 local right_panel = require(path_to_file .. ".right-panel")
 local theme_picker = require("widget.theme-picker")
-local theme_picker = require("widget.sound-picker")
+local sound_picker = require("widget.sound-picker")
 
 -- Create a wibox panel for each screen and add it
 screen.connect_signal("request::desktop_decoration", function(s)
