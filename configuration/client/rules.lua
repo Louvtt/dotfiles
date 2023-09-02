@@ -134,7 +134,9 @@ ruled.client.connect_signal(
 					'XTerm',
 					'UXTerm',
 					'kitty',
-					'K3rmit'
+					'K3rmit',
+					'alacritty',
+					'Alacritty'
 				}
 			},
 			properties = {
@@ -151,6 +153,7 @@ ruled.client.connect_signal(
 			rule_any = {
 				class = {
 					'firefox',
+					'vivaldi',
 					'Tor Browser',
 					'discord',
 					'Chromium',
@@ -172,6 +175,7 @@ ruled.client.connect_signal(
 					'Atom',
 					'Subl3',
 					'code-oss',
+					'VSCodium',
 					'vscodium'
 				},
 				name  = {
@@ -282,7 +286,9 @@ ruled.client.connect_signal(
 					'Godot',
 					'jetbrains-studio',
 					'Ettercap',
-					'scrcpy'
+					'scrcpy',
+					'RenderDoc',
+					'Tracy'
 				}
 			},
 			properties = {
