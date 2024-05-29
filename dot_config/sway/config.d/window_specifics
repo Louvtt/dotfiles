@@ -1,0 +1,2 @@
+# floating windows
+for_window [title="Float"] floating enable

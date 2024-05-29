@@ -1,0 +1,4 @@
+output eDP-1    resolution 3840x2400 position 0 0
+output HDMI-A-1 position 3840 0
+
+output * bg $background fill

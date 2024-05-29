@@ -1,0 +1,153 @@
+# shellcheck disable=SC2148,SC2086,SC2154,SC2046,SC2016
+### Variables
+#
+# Logo key. Use Mod1 for Alt and Mod4 for Super.
+set $mod Mod4
+set $alt_mod Mod1
+
+# Direction keys
+set $left Left
+set $down Down
+set $up Up
+set $right Right
+
+# Alternative direction keys
+set $left_alt h
+set $down_alt j
+set $up_alt k
+set $right_alt l
+
+# Default generated background
+# set $background $HOME/.config/sway/generated_background.svg
+
+# Add --to-code to bindsym, support for non-latin layouts
+set $bindsym bindsym --to-code
+
+# For user's convenience, the same for unbindsym
+set $unbindsym unbindsym --to-code
+
+# once-script
+set $once /usr/share/sway/scripts/once.sh
+
+# Your preferred terminal emulator
+set $term alacritty
+set $term_cwd $term --working-directory "$(swaycwd 2>/dev/null || echo $HOME)"
+set $term_float alacritty --class floating_shell --option "window.dimensions = { columns = 82, lines = 25 }" --command 
+
+# onscreen bar
+set $onscreen_bar /usr/share/sway/scripts/wob.sh "$accent-color" "$background-color"
+
+# set action
+# shutdown call (default : mode $shutdown_mode)
+set $shutdown_action exec $sway_dir/scripts/powermenu.sh
+
+# brightness control
+set $brightness /usr/share/sway/scripts/brightness.sh
+set $brightness_up $brightness up | $onscreen_bar
+set $brightness_down $brightness down | $onscreen_bar
+
+# scaling
+set $scale_up /usr/share/sway/scripts/scale.sh up
+set $scale_down /usr/share/sway/scripts/scale.sh down
+
+# audio control
+set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
+set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
+set $volume_down $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume)
+set $volume_up $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume)
+set $volume_mute $onscreen_bar $(pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En "/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p")
+set $mic_mute $onscreen_bar $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
+
+# rofi clipboard theme
+set $rofi_theme $HOME/.config/rofi/launchers/type-1/style-11
+
+# clipboard history
+set $clipboard cliphist list | rofi -dmenu -theme $rofi_theme -p "Select item to copy" -lines 10 | cliphist decode | wl-copy
+set $clipboard-del cliphist list | rofi -dmenu -theme $rofi_theme -p "Select item to delete" -lines 10 | cliphist delete
+
+# zeit tracking
+set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | \
+    rofi -dmenu -theme $rofi_theme -p "Select task to track" -lines 10 | \
+    /usr/share/sway/scripts/zeit.sh track && \
+    pkill -RTMIN+10 swaybar
+
+# Your preferred application launcher
+# rofi theme
+set $rofi_menu_theme $HOME/.config/rofi/launchers/type-3/style-4
+set $menu rofi -show drun -theme $rofi_menu_theme
+
+### Lockscreen configuration
+set $locking swaylock --daemonize --color "$selection-color" --inside-color "$background-color" --inside-clear-color "$background-color" --ring-color "$color1" --ring-clear-color "$color11" --ring-ver-color "$color12" --show-failed-attempts --fade-in 0.2 --grace 2 --effect-vignette 0.5:0.5 --effect-blur 7x5 --ignore-empty-password --screenshots --clock
+
+# bluetooth menu
+set $bluetooth $once $term_float bluetuith
+
+# Network (nmtui)
+set $rofi_wifi $HOME/.config/rofi-wifi-menu/rofi-wifi-menu.sh
+# set $network $rofi_wifi connect
+set $network $once $term_float nmtui connect
+
+### Idle configuration
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+#
+set $idle_timeout 240
+set $locking_timeout 300
+set $screen_timeout 600
+set $sleep_timeout_bat 900
+set $sleep_timeout_ac 10800
+set $sleep_delay 2
+
+# hide cursor after 5 seconds of inactivty
+seat seat0 hide_cursor 5000
+
+# statusbar command
+set $statusbar $sway_dir/waybar.sh
+set $waybar_position top
+
+# pulseaudio command
+set $pulseaudio $once $term_float pulsemixer
+
+# help command
+# set $help /usr/share/sway/scripts/help.sh --toggle
+
+# calendar application
+set $calendar $once $term_float calcurse
+
+# workspace names
+set $ws1 number 1
+set $ws2 number 2
+set $ws3 number 3
+set $ws4 number 4
+set $ws5 number 5
+set $ws6 number 6
+set $ws7 number 7
+set $ws8 number 8
+set $ws9 number 9
+set $ws10 number 10
+
+# screenshot
+set $grimshot grimshot
+set $pipe_output $grimshot save output -
+set $pipe_selection $grimshot save window -
+set $notify_paste [[ $(wl-paste -l) == "image/png" ]] && notify-send "Screenshot copied to clipboard"
+set $swappy swappy -f -
+set $swappy_pipe swappy -f - -o -
+set $upload_pipe curl -s -F "file=@-;filename=.png" https://x0.at/ | tee >(wl-copy) >(xargs notify-send)
+
+set $screenshot_screen $pipe_output | $swappy && $notify_paste
+set $screenshot_screen_upload $pipe_output | $swappy_pipe | $upload_pipe
+
+set $screenshot_selection $pipe_selection | $swappy && $notify_paste
+set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
+
+
+# Gaps
+gaps top    0
+gaps left   0
+gaps right  0
+gaps bottom 0
+gaps inner  5
+default_border normal 3
+smart_gaps off

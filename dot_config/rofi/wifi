@@ -1,0 +1,25 @@
+# author: Louvtt
+# wifi config for rofi-wifi-menu
+
+# Config for rofi-wifi-menu
+
+# position values:
+# 1 2 3
+# 8 0 4
+# 7 6 5
+POSITION=0
+
+#y-offset
+YOFF=0
+
+#x-offset
+XOFF=0
+
+#fields to be displayed
+FIELDS=SSID,SECURITY,BARS
+
+#font
+FONT="DejaVu Sans Mono 8"
+
+#theme
+THEME="$HOME/.config/rofi/launchers/type-1/style-11"

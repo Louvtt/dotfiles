@@ -1,0 +1,37 @@
+# Personal config for sway
+#
+# Author: Louvtt - louvttgames@gmail.com
+# Date : 2023
+#
+# Built from default Manjaro sway theme
+
+set $sway_dir $HOME/.config/sway
+set $rofi_dir $sway_dir
+set $theme $sway_dir/theme
+
+# theme variables
+include $theme/theme.conf
+set $background $HOME/Pictures/crow_background.png
+
+# user variables can override global definitions
+include $sway_dir/definitions
+
+# user config
+include $sway_dir/config.d/*
+
+# global variables
+include /etc/sway/autostart
+include $sway_dir/autostart
+# include /etc/sway/inputs/*
+# include /etc/sway/outputs/*
+# enable modes
+include $sway_dir/modes/*
+
+# only enable this if every app you use is compatible with wayland
+# xwayland disable
+
+
+# include additional configs e.g. to autostart applications
+set $mako '[ -x "$(command -v mako)" ] && pkill mako; /usr/share/sway/scripts/mako.sh --font "$gui-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 1 --border-radius 5 --width 300 --height 200 --padding 10 --margin 10 --default-timeout 15000'
+include /etc/sway/config.d/*
+
